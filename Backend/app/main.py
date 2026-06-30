@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from settings import settings
 from fastapi.middleware.cors import CORSMiddleware
+from constants import SUPPORTED_FILE_TYPES, PROJECT_FEATURES
 
 app=FastAPI()
 app.add_middleware(
@@ -14,10 +15,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/information", tags=["Information"])
+@app.get("/", tags=["Project Details"])
 async def get_information():
     return {
-        "name": settings.PROJECT_NAME,
-        "description": settings.PROJECT_DESCRIPTION,
-        "version": settings.PROJECT_VERSION
+        "Name": settings.PROJECT_NAME,
+        "Description": settings.PROJECT_DESCRIPTION,
+        "Version": settings.PROJECT_VERSION, 
+        "Feature": PROJECT_FEATURES,
+        "Support File Types": SUPPORTED_FILE_TYPES
     }
